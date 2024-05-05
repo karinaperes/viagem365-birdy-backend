@@ -6,6 +6,7 @@ async function auth(req, res, next) {
 
         const payload = verify(authorization, process.env.SECRET_JWT)
         req.userId = payload.sub
+    
         next()
 
     } catch (error) {
