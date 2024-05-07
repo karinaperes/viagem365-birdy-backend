@@ -1,10 +1,31 @@
 const Usuario = require('../models/Usuario')
 
+
 class UsuarioController {
     async cadastrar(req, res) {
+        /*
+            #swagger.tags = ['Usuario'],
+            #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'Cadastra novo usuário',
+                schema: {
+                    $nome: 'Karina',
+                    $sexo: 'Feminino',
+                    $cpf: '83526448078',
+                    $cep: '88066242',
+                    $endereco: 'Servidao Alfredo',
+                    $numero: '577',
+                    complemento: 'Apto 1',
+                    $email: 'email@email.com',
+                    $data_nascimento: '1979-03-22',
+                    $password: '1234'
+                }
+            }
+
+        */
         try {
             const { nome, sexo, cpf, cep, endereco, numero,
-                email, data_nascimento, password } = req.body
+                email, data_nascimento, password } = req.body            
 
             if (!(nome || sexo || cpf || cep || endereco || numero
                 || email || data_nascimento || password)) {
@@ -19,11 +40,14 @@ class UsuarioController {
 
         } catch (error) {
             res.status(500).json({ erro: 'Não foi possível efetuar o cadastro do usuário, verifique os dados inseridos' })
-        }
+        }        
     }
 
     async listar(req, res) {
         try {
+            /*
+            #swagger.tags = ['Usuario']
+        */
             const { id } = req.params
             const usuario = await Usuario.findByPk(id)
 
@@ -43,6 +67,26 @@ class UsuarioController {
     }
 
     async atualizar(req, res) {
+        /*
+            #swagger.tags = ['Usuario'],
+            #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'Atualiza usuário',
+                schema: {
+                    nome: 'Nome Alterado',
+                    sexo: 'Feminino',
+                    cpf: '83526448078',
+                    cep: '88066242',
+                    endereco: 'Servidao Alfredo',
+                    numero: '577',
+                    complemento: 'Apto 1',
+                    email: 'email@email.com',
+                    data_nascimento: '1979-03-22',
+                    password: '1234'
+                }
+            }
+
+        */
         try {
             const { id } = req.params
             const usuario = await Usuario.findByPk(id)
@@ -61,6 +105,9 @@ class UsuarioController {
     }
 
     async excluir(req, res) {
+        /*
+            #swagger.tags = ['Usuario']
+        */
         try {
             const { id } = req.params
             const usuario = await Usuario.findByPk(id)
