@@ -3,6 +3,18 @@ const { sign } = require('jsonwebtoken')
 
 class LoginController {
     async logar(req, res) {
+                /*
+            #swagger.tags = ['Login'],
+            #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'Login',
+                schema: {
+                    $email: 'email@email.com',
+                    $password: '1234'
+                }
+            }
+
+        */
         try {
             const email = req.body.email
             const password = req.body.password
