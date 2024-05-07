@@ -32,13 +32,31 @@ class UsuarioController {
                 return res.status(400).json({ erro: 'Todos os campos devem ser preenchidos' })
             }
 
+            const cpfExistente = await Usuario.findOne({
+                where: {
+                    cpf: cpf                    
+                }
+            })
+            const emailExistente = await Usuario.findOne({
+                where: {
+                    email: email                    
+                }
+            })
+
+            if (cpfExistente) {
+                return res.status(409).json({ mensagem: 'CPF já cadastrado' })
+            }
+            if (emailExistente) {
+                return res.status(409).json({ mensagem: 'E-mail já cadastrado' })
+            }
+
             const usuario = await Usuario.create(req.body)
             await usuario.validate()
             await usuario.save()
 
             res.status(201).json(usuario)
 
-        } catch (error) {
+        } catch (error) {            
             res.status(500).json({ erro: 'Não foi possível efetuar o cadastro do usuário, verifique os dados inseridos' })
         }        
     }
