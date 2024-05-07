@@ -95,10 +95,6 @@
                   "type": "string",
                   "example": "88066242"
                 },
-                "endereco": {
-                  "type": "string",
-                  "example": "Servidao Alfredo"
-                },
                 "numero": {
                   "type": "string",
                   "example": "577"
@@ -125,7 +121,6 @@
                 "sexo",
                 "cpf",
                 "cep",
-                "endereco",
                 "numero",
                 "email",
                 "data_nascimento",
@@ -140,6 +135,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"
@@ -311,8 +309,8 @@
             "type": "string"
           },
           {
-            "name": "query",
-            "in": "query",
+            "name": "body",
+            "in": "body",
             "description": "Cadastra novo destino",
             "schema": {
               "type": "object",
@@ -346,36 +344,6 @@
                 "coordenadas_geo"
               ]
             }
-          },
-          {
-            "name": "usuario_id",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "nome",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "descricao",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "cidade",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "uf",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "coordenadas_geo",
-            "in": "query",
-            "type": "string"
           }
         ],
         "responses": {
