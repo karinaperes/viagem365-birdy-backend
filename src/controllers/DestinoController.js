@@ -4,8 +4,8 @@ class DestinoController {
     async cadastrar(req, res) {
                 /*
             #swagger.tags = ['Destino'],
-            #swagger.parameters['query'] = {
-                in: 'query',
+            #swagger.parameters['body'] = {
+                in: 'body',
                 description: 'Cadastra novo destino',
                 schema: {
                     $nome: "Lagoa do Peri",
@@ -21,19 +21,19 @@ class DestinoController {
         try {          
             
             const usuario_id = req.userId
-            req.query.usuario_id = usuario_id
+            req.body.usuario_id = usuario_id
             
-            const nome =  req.query.nome
-            const descricao = req.query.descricao
-            const cidade = req.query.cidade
-            const uf = req.query.uf
-            const coordenadas_geo = req.query.coordenadas_geo           
+            const nome =  req.body.nome
+            const descricao = req.body.descricao
+            const cidade = req.body.cidade
+            const uf = req.body.uf
+            const coordenadas_geo = req.body.coordenadas_geo           
 
             if (!(usuario_id || nome || descricao || cidade || uf || coordenadas_geo)) {
                 return res.status(400).json({ erro: 'Todos os campos devem ser preenchidos' })
             }            
 
-            const destino = await Destino.create(req.query)
+            const destino = await Destino.create(req.body)
             await destino.save()
 
             res.status(201).json(destino)
