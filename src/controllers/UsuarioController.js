@@ -1,4 +1,5 @@
 const Usuario = require('../models/Usuario')
+const { consultaCep } = require('../utils/consultaCep')
 
 
 class UsuarioController {
@@ -12,8 +13,7 @@ class UsuarioController {
                     $nome: 'Karina',
                     $sexo: 'Feminino',
                     $cpf: '83526448078',
-                    $cep: '88066242',
-                    $endereco: 'Servidao Alfredo',
+                    $cep: '88066242',                    
                     $numero: '577',
                     complemento: 'Apto 1',
                     $email: 'email@email.com',
@@ -24,10 +24,15 @@ class UsuarioController {
 
         */
         try {
-            const { nome, sexo, cpf, cep, endereco, numero,
-                email, data_nascimento, password } = req.body            
+            const { nome, sexo, cpf, cep, numero,
+                email, data_nascimento, password } = req.body           
+            
 
-            if (!(nome || sexo || cpf || cep || endereco || numero
+            const { endereco } = await consultaCep(cep)  
+            req.body.endereco = endereco              
+           
+
+            if (!(nome || sexo || cpf || cep || numero
                 || email || data_nascimento || password)) {
                 return res.status(400).json({ erro: 'Todos os campos devem ser preenchidos' })
             }
@@ -50,13 +55,16 @@ class UsuarioController {
                 return res.status(409).json({ mensagem: 'E-mail já cadastrado' })
             }
 
+            
+
             const usuario = await Usuario.create(req.body)
             await usuario.validate()
             await usuario.save()
 
             res.status(201).json(usuario)
 
-        } catch (error) {            
+        } catch (error) {      
+            console.log(error.message)      
             res.status(500).json({ erro: 'Não foi possível efetuar o cadastro do usuário, verifique os dados inseridos' })
         }        
     }
@@ -138,7 +146,7 @@ class UsuarioController {
             res.status(200).json({ mensagem: 'Usuário excluído com sucesso' })
 
         } catch (error) {
-
+            console.log(error.message)
             res.status(500).json({ erro: 'Não foi possível excluir usuário' })
         }
     }

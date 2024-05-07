@@ -29,7 +29,7 @@ const Usuario = connection.define('usuarios', {
     },
     endereco: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     numero: {
         type: DataTypes.STRING,
