@@ -1,4 +1,5 @@
 const Destino = require('../models/Destino')
+const { consultaCidade } = require('../utils/consultaCidade')
 
 class DestinoController {
     async cadastrar(req, res) {
@@ -10,12 +11,9 @@ class DestinoController {
                 schema: {
                     $nome: "Lagoa do Peri",
                     $descricao: "Local muito bom para passar o dia com a família, lagoa própria pra banho e com opção de realizar trilha no local, há um restaurante na entrada da lagoa",
-                    $cidade: "Florianópolis",
-                    $uf: "SC",
                     $coordenadas_geo: "-27.7292638,-48.5559065"
                 }
             }
-
         */
 
         try {          
@@ -25,13 +23,22 @@ class DestinoController {
             
             const nome =  req.body.nome
             const descricao = req.body.descricao
-            const cidade = req.body.cidade
-            const uf = req.body.uf
             const coordenadas_geo = req.body.coordenadas_geo           
 
             if (!(usuario_id || nome || descricao || cidade || uf || coordenadas_geo)) {
                 return res.status(400).json({ erro: 'Todos os campos devem ser preenchidos' })
-            }            
+            }   
+            
+            if (coordenadas_geo) {
+                const { cidade, uf } = await consultaCidade(coordenadas_geo)
+
+                if (cidade && uf) {
+                    req.body.cidade = cidade
+                    req.body.uf = uf                    
+                } else {
+                    throw new Error('Não foi possível encontrar a cidade e estado para as coordenadas fornecidas')
+                }
+            }
 
             const destino = await Destino.create(req.body)
             await destino.save()
@@ -39,21 +46,47 @@ class DestinoController {
             res.status(201).json(destino)
 
         } catch (error) {    
-            console.log(error.message)        
             res.status(500).json({ erro: 'Não foi possível efetuar o cadastro do destino' })
         }
     }
 
-    async listar(req, res) { //TODO Ver se os destinos podem ser listados por todos com login
+    async listar(req, res) {
         /*
             #swagger.tags = ['Destino']
         */
         try {
+            const { id } = req.params
+            const destino = await Destino.findByPk(id)
+
+            if (!(destino.usuario_id === req.userId)) {
+                return res.status(403).json({ erro: 'Acesso não autorizado' })
+            }
+
             const destinos = await Destino.findAll()
             res.status(200).json(destinos)
 
         } catch (error) {
             res.status(500).json({ erro: 'Não foi possível listar os destinos'})
+        }
+    }
+
+    async listarUm(req, res) {
+        /*
+            #swagger.tags = ['Destino']
+        */
+        try {
+            const { id } = req.params
+            const destino = await Destino.findByPk(id)
+
+            if (!(destino.usuario_id === req.userId)) {
+                return res.status(403).json({ erro: 'Acesso não autorizado' })
+            }
+
+            res.status(200).json(destino)
+
+        } catch (error) {
+            console.log(error.message)
+            res.status(500).json({ erro: 'Não foi possível listar o destino'})
         }
     }
 

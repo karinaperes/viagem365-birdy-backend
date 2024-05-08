@@ -34,7 +34,7 @@ module.exports = {
       },
       uf: {
         allowNull: false,
-        type: Sequelize.STRING(2)
+        type: Sequelize.STRING
       },
       coordenadas_geo: {
         type: Sequelize.STRING

@@ -65,7 +65,7 @@
         }
       }
     },
-    "/usuarios/": {
+    "/usuario/": {
       "post": {
         "tags": [
           "Usuario"
@@ -145,7 +145,7 @@
         }
       }
     },
-    "/usuarios/{id}": {
+    "/usuario/{id}": {
       "get": {
         "tags": [
           "Usuario"
@@ -296,7 +296,7 @@
         }
       }
     },
-    "/destinos/": {
+    "/local/": {
       "post": {
         "tags": [
           "Destino"
@@ -323,14 +323,6 @@
                   "type": "string",
                   "example": "Local muito bom para passar o dia com a família, lagoa própria pra banho e com opção de realizar trilha no local, há um restaurante na entrada da lagoa"
                 },
-                "cidade": {
-                  "type": "string",
-                  "example": "Florianópolis"
-                },
-                "uf": {
-                  "type": "string",
-                  "example": "SC"
-                },
                 "coordenadas_geo": {
                   "type": "string",
                   "example": "-27.7292638,-48.5559065"
@@ -339,8 +331,6 @@
               "required": [
                 "nome",
                 "descricao",
-                "cidade",
-                "uf",
                 "coordenadas_geo"
               ]
             }
@@ -380,13 +370,49 @@
           "401": {
             "description": "Unauthorized"
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
         }
       }
     },
-    "/destinos/{id}": {
+    "/local/{id}": {
+      "get": {
+        "tags": [
+          "Destino"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Destino"
