@@ -21,16 +21,13 @@ class UsuarioController {
                     $password: '1234'
                 }
             }
-
         */
         try {
             const { nome, sexo, cpf, cep, numero,
-                email, data_nascimento, password } = req.body           
-            
+                email, data_nascimento, password } = req.body            
 
             const { endereco } = await consultaCep(cep)  
-            req.body.endereco = endereco              
-           
+            req.body.endereco = endereco         
 
             if (!(nome || sexo || cpf || cep || numero
                 || email || data_nascimento || password)) {
@@ -53,9 +50,7 @@ class UsuarioController {
             }
             if (emailExistente) {
                 return res.status(409).json({ mensagem: 'E-mail já cadastrado' })
-            }
-
-            
+            }           
 
             const usuario = await Usuario.create(req.body)
             await usuario.validate()
@@ -87,7 +82,6 @@ class UsuarioController {
             res.status(200).json(usuario)
 
         } catch (error) {
-
             res.status(500).json({ erro: 'Não foi possível encontrar usuário' })
         }
     }
@@ -111,7 +105,6 @@ class UsuarioController {
                     password: '1234'
                 }
             }
-
         */
         try {
             const { id } = req.params

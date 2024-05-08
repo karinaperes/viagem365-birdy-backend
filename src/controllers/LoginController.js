@@ -13,7 +13,6 @@ class LoginController {
                     $password: '1234'
                 }
             }
-
         */
         try {
             const email = req.body.email
@@ -38,8 +37,7 @@ class LoginController {
 
             res.status(200).json({ Token: token })
 
-        } catch (error) {
-            console.error(error)
+        } catch (error) {            
             return res.status(500).json({ erro: 'Solicitação não pôde ser atendida' })            
         }
     }

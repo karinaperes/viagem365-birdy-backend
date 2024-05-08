@@ -22,7 +22,7 @@ const Destino = connection.define('destinos', {
         allowNull: false
     },
     uf: {
-        type:DataTypes.STRING(2),
+        type:DataTypes.STRING,
         allowNull: false
     },
     coordenadas_geo: {
