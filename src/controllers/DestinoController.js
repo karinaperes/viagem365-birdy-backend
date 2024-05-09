@@ -27,7 +27,16 @@ class DestinoController {
 
             if (!(usuario_id || nome || descricao || cidade || uf || coordenadas_geo)) {
                 return res.status(400).json({ erro: 'Todos os campos devem ser preenchidos' })
-            }   
+            }
+
+            const coordenadasExistente = await Destino.findOne({
+                where: {
+                    coordenadas_geo: coordenadas_geo                    
+                }
+            })
+            if (coordenadasExistente) {
+                return res.status(409).json({ mensagem: 'Coordenadas já foram cadastradas para o usuário' })
+            }
             
             if (coordenadas_geo) {
                 const { cidade, uf } = await consultaCidade(coordenadas_geo)
