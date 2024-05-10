@@ -1,10 +1,11 @@
+const { userInfo } = require('os')
 const Destino = require('../models/Destino')
 const { consultaCidade } = require('../utils/consultaCidade')
 
 class DestinoController {
     async cadastrar(req, res) {
                 /*
-            #swagger.tags = ['Destino'],
+            #swagger.tags = ['Local'],
             #swagger.parameters['body'] = {
                 in: 'body',
                 description: 'Cadastra novo destino',
@@ -31,6 +32,7 @@ class DestinoController {
 
             const coordenadasExistente = await Destino.findOne({
                 where: {
+                    usuario_id: usuario_id,
                     coordenadas_geo: coordenadas_geo                    
                 }
             })
@@ -61,17 +63,15 @@ class DestinoController {
 
     async listar(req, res) {
         /*
-            #swagger.tags = ['Destino']
+            #swagger.tags = ['Local']
         */
-        try {
-            const { id } = req.params
-            const destino = await Destino.findByPk(id)
-
-            if (!(destino.usuario_id === req.userId)) {
-                return res.status(403).json({ erro: 'Acesso não autorizado' })
-            }
-
-            const destinos = await Destino.findAll()
+        try {            
+            const userId = req.userId
+            const destinos = await Destino.findAll({
+                where: {
+                    usuario_id: userId
+                }
+            })
             res.status(200).json(destinos)
 
         } catch (error) {
@@ -81,7 +81,7 @@ class DestinoController {
 
     async listarUm(req, res) {
         /*
-            #swagger.tags = ['Destino']
+            #swagger.tags = ['Local']
         */
         try {
             const { id } = req.params
@@ -101,7 +101,16 @@ class DestinoController {
 
     async atualizar(req, res) {
         /*
-            #swagger.tags = ['Destino']
+            #swagger.tags = ['Local'],
+            #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'Atualiza local',
+                schema: {
+                    nome: 'Nome Alterado',
+                    descricao: "Local muito bom para passar o dia com a família, lagoa própria pra banho e com opção de realizar trilha no local, há um restaurante na entrada da lagoa",
+                    coordenadas_geo: "-27.7292638,-48.5559080"
+                }
+            }
         */
         try {
             const { id } = req.params
@@ -122,7 +131,7 @@ class DestinoController {
 
     async excluir(req, res) {
         /*
-            #swagger.tags = ['Destino']
+            #swagger.tags = ['Local']
         */
         try {
             const { id } = req.params

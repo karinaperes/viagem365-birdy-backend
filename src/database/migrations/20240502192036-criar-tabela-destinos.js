@@ -38,6 +38,14 @@ module.exports = {
       },
       coordenadas_geo: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull:false
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull:false
       }
     });     
   },
