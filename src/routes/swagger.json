@@ -24,7 +24,7 @@
         "tags": [
           "Login"
         ],
-        "description": "",
+        "description": "Login por email e senha de usuário cadastrado",
         "parameters": [
           {
             "name": "body",
@@ -70,7 +70,7 @@
         "tags": [
           "Usuario"
         ],
-        "description": "",
+        "description": "Cadastra novo usuário, validação de duplicidade de email e cpf, busca endereço a partir do CEP informado",
         "parameters": [
           {
             "name": "body",
@@ -150,7 +150,7 @@
         "tags": [
           "Usuario"
         ],
-        "description": "",
+        "description": "Lista dados do usuário autenticado",
         "parameters": [
           {
             "name": "id",
@@ -183,7 +183,7 @@
         "tags": [
           "Usuario"
         ],
-        "description": "",
+        "description": "Atualiza dados do usuário autenticado",
         "parameters": [
           {
             "name": "id",
@@ -266,7 +266,7 @@
         "tags": [
           "Usuario"
         ],
-        "description": "",
+        "description": "Exclui usuário autenticado, desde que não tenha locais cadastrados",
         "parameters": [
           {
             "name": "id",
@@ -284,11 +284,17 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -301,7 +307,7 @@
         "tags": [
           "Local"
         ],
-        "description": "",
+        "description": "Cadastra novo local, buscando a cidade e o estado pelas coordenadas informadas, por usuário autenticado",
         "parameters": [
           {
             "name": "authorization",
@@ -311,7 +317,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "Cadastra novo destino",
+            "description": "Cadastra novo local",
             "schema": {
               "type": "object",
               "properties": {
@@ -358,7 +364,7 @@
         "tags": [
           "Local"
         ],
-        "description": "",
+        "description": "Lista todos os locais cadastrados pelo usuário autenticado",
         "parameters": [
           {
             "name": "authorization",
@@ -384,7 +390,7 @@
         "tags": [
           "Local"
         ],
-        "description": "",
+        "description": "Lista local específico cadastrado pelo usuário autenticado",
         "parameters": [
           {
             "name": "id",
@@ -417,7 +423,7 @@
         "tags": [
           "Local"
         ],
-        "description": "",
+        "description": "Atualiza dados do local cadastrado pelo usuário autenticado",
         "parameters": [
           {
             "name": "id",
@@ -472,7 +478,7 @@
         "tags": [
           "Local"
         ],
-        "description": "",
+        "description": "Exclui local cadastrado pelo usuário autenticado",
         "parameters": [
           {
             "name": "id",
@@ -487,6 +493,9 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "401": {
             "description": "Unauthorized"
           },

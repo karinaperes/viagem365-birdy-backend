@@ -6,6 +6,7 @@ class LoginController {
     async logar(req, res) {
                 /*
             #swagger.tags = ['Login'],
+            #swagger.description = 'Login por email e senha de usuário cadastrado',
             #swagger.parameters['body'] = {
                 in: 'body',
                 description: 'Login',

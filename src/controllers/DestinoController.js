@@ -6,9 +6,10 @@ class DestinoController {
     async cadastrar(req, res) {
                 /*
             #swagger.tags = ['Local'],
+            #swagger.description = 'Cadastra novo local, buscando a cidade e o estado pelas coordenadas informadas, pelo usuário autenticado',
             #swagger.parameters['body'] = {
                 in: 'body',
-                description: 'Cadastra novo destino',
+                description: 'Cadastra novo local',
                 schema: {
                     $nome: "Lagoa do Peri",
                     $descricao: "Local muito bom para passar o dia com a família, lagoa própria pra banho e com opção de realizar trilha no local, há um restaurante na entrada da lagoa",
@@ -63,7 +64,8 @@ class DestinoController {
 
     async listar(req, res) {
         /*
-            #swagger.tags = ['Local']
+            #swagger.tags = ['Local'],
+            #swagger.description = 'Lista todos os locais cadastrados pelo usuário autenticado'
         */
         try {            
             const userId = req.userId
@@ -81,7 +83,8 @@ class DestinoController {
 
     async listarUm(req, res) {
         /*
-            #swagger.tags = ['Local']
+            #swagger.tags = ['Local'],
+            #swagger.description = 'Lista local específico cadastrado pelo usuário autenticado'
         */
         try {
             const { id } = req.params
@@ -102,6 +105,7 @@ class DestinoController {
     async atualizar(req, res) {
         /*
             #swagger.tags = ['Local'],
+            #swagger.description = 'Atualiza dados do local cadastrado pelo usuário autenticado',
             #swagger.parameters['body'] = {
                 in: 'body',
                 description: 'Atualiza local',
@@ -131,7 +135,8 @@ class DestinoController {
 
     async excluir(req, res) {
         /*
-            #swagger.tags = ['Local']
+            #swagger.tags = ['Local'],
+            #swagger.description = 'Exclui local cadastrado pelo usuário autenticado'
         */
         try {
             const { id } = req.params
