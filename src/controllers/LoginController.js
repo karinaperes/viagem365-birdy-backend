@@ -34,7 +34,7 @@ class LoginController {
             }
 
             const hashSenha = await compare(password, usuario.password)
-            if(!hashSenha === false) {
+            if(hashSenha === false) {
                 return res.status(400).json({ mensagem: 'Senha inválida' })
             }
 
