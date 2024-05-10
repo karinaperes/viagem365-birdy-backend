@@ -45,7 +45,7 @@ const Usuario = connection.define('usuarios', {
         unique: true
     },
     data_nascimento: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     password: {
