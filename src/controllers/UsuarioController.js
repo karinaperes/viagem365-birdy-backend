@@ -6,6 +6,7 @@ class UsuarioController {
     async cadastrar(req, res) {
         /*
             #swagger.tags = ['Usuario'],
+            #swagger.description = 'Cadastra novo usuário, validação de duplicidade de email e cpf, busca endereço a partir do CEP informado',
             #swagger.parameters['body'] = {
                 in: 'body',
                 description: 'Cadastra novo usuário',
@@ -67,7 +68,8 @@ class UsuarioController {
     async listar(req, res) {
         try {
             /*
-            #swagger.tags = ['Usuario']
+            #swagger.tags = ['Usuario'],
+            #swagger.description = 'Lista dados do usuário autenticado',
         */
             const { id } = req.params
             const usuario = await Usuario.findByPk(id)
@@ -89,6 +91,7 @@ class UsuarioController {
     async atualizar(req, res) {
         /*
             #swagger.tags = ['Usuario'],
+            #swagger.description = 'Atualiza dados do usuário autenticado',
             #swagger.parameters['body'] = {
                 in: 'body',
                 description: 'Atualiza usuário',
@@ -125,7 +128,8 @@ class UsuarioController {
 
     async excluir(req, res) {
         /*
-            #swagger.tags = ['Usuario']
+            #swagger.tags = ['Usuario'],
+            #swagger.description = 'Exclui usuário autenticado, desde que não tenha locais cadastrados',
         */
         try {
             const { id } = req.params
@@ -133,6 +137,20 @@ class UsuarioController {
 
             if(!(usuario.id === req.userId)) {
                 return res.status(403).json({ erro: 'Acesso não autorizado' })
+            }
+
+            if(!usuario) {
+                return res.status(404).json({erro: "Nenhum usuário cadastrado com o id informado."})
+            }
+
+            const localUsuario = await Local.findAll({
+                where: {
+                    usuario_id: id
+                }
+            })
+
+            if (localUsuario.length > 0) {
+                return res.status(400).json({erro: "Este usuário não pode ser excluído pois possui locais cadastrados."})
             }
 
             await usuario.destroy()
