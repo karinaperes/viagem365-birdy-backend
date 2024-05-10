@@ -140,6 +140,10 @@ class DestinoController {
             if(!(destino.usuario_id === req.userId)) {
                 return res.status(403).json({ erro: 'Acesso não autorizado' })
             }
+
+            await destino.destroy()
+            res.status(200).json({ mensagem: 'Local excluído com sucesso' })
+            
         } catch (error) {
             res.status(500).json({ error: 'Não foi possível excluir o destino' })
         }
