@@ -1,27 +1,27 @@
 *O projeto Birdy, foi desenvolvido para planejar e registrar suas aventuras, te levando a explorar e desfrutar das belezas naturais com facilidade e segurança.*
 
 ### Foi desenvolvido com:
-node.js
-sequelize
-express
-pg PostgreSQL
-cors
-dotenv
+- node.js
+- sequelize
+- express
+- pg PostgreSQL
+- cors
+- dotenv
 
 ### Para autenticação e criptografia de senhas:
-jsonwebtoken
-bcrypt
+- jsonwebtoken
+- bcrypt
 
 ### Para validações:
-cpf-check
+- cpf-check
 
 ### Para requisições geográficas:
-axios
-nominatim-geocoder
+- axios
+- nominatim-geocoder
 
 ### Para testes e documentação:
-swagger-autogen
-swagger-jsdoc
+- swagger-autogen
+- swagger-jsdoc
 
 # Para rodar o repositório:
 
